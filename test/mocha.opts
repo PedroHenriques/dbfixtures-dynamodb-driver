@@ -1,0 +1,5 @@
+--check-leaks
+--full-trace
+-R min
+--timeout 30000
+--recursive
