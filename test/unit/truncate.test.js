@@ -4,8 +4,6 @@ const sinon = require('sinon');
 const chai = require('chai');
 const assert = chai.assert;
 
-const aws = require('aws-sdk');
-
 describe('Truncate', function () {
   const sandbox = sinon.createSandbox();
   let doubles;
@@ -13,7 +11,6 @@ describe('Truncate', function () {
 
   beforeEach(function () {
     doubles = {
-      dynamodbClient: sandbox.stub(aws.dynamodbClient),
       dynamodbInstance: {
         deleteTable: sandbox.stub(),
         createTable: sandbox.stub(),
@@ -21,7 +18,6 @@ describe('Truncate', function () {
       deleteTablePromise: sandbox.stub(),
       createTablePromise: sandbox.stub(),
     };
-    doubles.dynamodbClient.returns(doubles.dynamodbInstance);
     doubles.dynamodbInstance.deleteTable.returns({ promise: doubles.deleteTablePromise });
     doubles.deleteTablePromise.returns(Promise.resolve());
     doubles.dynamodbInstance.createTable.returns({ promise: doubles.createTablePromise });
