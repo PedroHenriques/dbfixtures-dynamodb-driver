@@ -1,0 +1,37 @@
+dist: trusty
+sudo: false
+language: node_js
+
+matrix:
+  include:
+    - node_js: "node"
+    - node_js: "14"
+    - node_js: "13"
+    - node_js: "12"
+    - node_js: "11"
+    - node_js: "10"
+
+notifications:
+  email:
+    on_failure: always
+
+branches:
+  only:
+    - /.*/
+
+services:
+  - docker
+
+install:
+  - npm install
+  - docker pull localstack/localstack
+
+before_script:
+  - docker run --name testlocalstack -itd -p 4566:4566 -e SERVICES=dynamodb localstack/localstack & sleep 20
+
+script:
+  - npm run lint
+  - npm run build
+  - npm test -- test/unit/
+  - npm test -- test/integration/
+  - npm test -- test/e2e/
