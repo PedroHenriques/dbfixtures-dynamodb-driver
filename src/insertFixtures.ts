@@ -42,7 +42,10 @@ function writeItems(
       ));
     })
     .then(writeResult => {
-      if (writeResult.UnprocessedItems !== undefined) {
+      if (
+        writeResult.UnprocessedItems !== undefined &&
+        Object.getOwnPropertyNames(writeResult.UnprocessedItems).length > 0
+      ) {
         return Promise.reject(new Error(
           `Failed to insert ${writeResult.UnprocessedItems[tableName].length} fixtures in the table "${tableName}".`
         ));
