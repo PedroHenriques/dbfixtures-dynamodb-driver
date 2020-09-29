@@ -110,7 +110,7 @@ describe('Entry point', function () {
   });
 
   describe('"truncate" property of the returned object', function () {
-    it('should remove all documents from the selected collection', async function () {
+    it('should remove all items from the selected table', async function () {
       await Promise.all([
         client.scan({ TableName: 'roles' }).promise(),
         client.scan({ TableName: 'users' }).promise(),
@@ -134,7 +134,7 @@ describe('Entry point', function () {
   });
 
   describe('"insertFixtures" property of the returned object', function () {
-    it('should insert the provided documents into the selected collection', async function () {
+    it('should insert the provided items into the selected table', async function () {
       await Promise.all([
         client.scan({ TableName: 'roles' }).promise(),
         client.scan({ TableName: 'users' }).promise(),
