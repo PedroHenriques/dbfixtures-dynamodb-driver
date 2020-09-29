@@ -30,7 +30,6 @@ install:
 
 before_script:
   - docker run --name testlocalstack -itd -p 4566:4566 -e SERVICES=dynamodb localstack/localstack & sleep 20
-  - docker logs testlocalstack
 
 script:
   - npm run lint
