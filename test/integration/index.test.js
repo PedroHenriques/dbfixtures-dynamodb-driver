@@ -63,31 +63,27 @@ describe('Entry point', function () {
       },
     };
 
-    await Promise.all([
-      client.describeTable({ TableName: 'roles' }).promise()
-        .then(function (tableData) {
-          if (tableData.Table !== undefined) { return }
-          return client.createTable(tableConfigs.roles).promise();
-        }),
-      client.describeTable({ TableName: 'users' }).promise()
-        .then(function (tableData) {
-          if (tableData.Table !== undefined) { return }
-          return client.createTable(tableConfigs.users).promise();
-        }),
-      sutModule.create({
-          clientConfiguration: dynamodbConfig,
-          tableConfigs,
-        })
-        .then(function (result) {
-          moduleValue = result;
-        }),
-    ]);
+    await sutModule.create({
+        clientConfiguration: dynamodbConfig,
+        tableConfigs,
+      })
+      .then(function (result) {
+        moduleValue = result;
+      });
   });
 
   beforeEach(async function () {
     await Promise.all([
-      client.deleteTable({ TableName: 'roles' }).promise(),
-      client.deleteTable({ TableName: 'users' }).promise(),
+      client.deleteTable({ TableName: 'roles' }).promise()
+        .catch(function (error) {
+          if (error.name === 'ResourceNotFoundException') { return; }
+          throw error;
+        }),
+      client.deleteTable({ TableName: 'users' }).promise()
+        .catch(function (error) {
+          if (error.name === 'ResourceNotFoundException') { return; }
+          throw error;
+        }),
     ]);
     await Promise.all([
       client.createTable(tableConfigs.roles).promise(),
