@@ -136,4 +136,4 @@ describe('fixtures example', function () {
 
 ### Suggestion to setting up a DynamoDb server on your local machine
 
-If you are using `Docker`, you can run the CLI command `docker run --name testlocalstack -it -p 127.0.0.1:4566:4566/tcp -e SERVICES=dynamodb localstack/localstack` to raise a container with the Localstack image and make an instance of DynamoDb available through `localhost:4566`.
+If you are using `Docker`, you can run the CLI command `docker run --name testlocalstack -it -p 4566:4566 -e SERVICES=dynamodb localstack/localstack` to raise a container with the Localstack image and make an instance of DynamoDb available through `localhost:4566`.
