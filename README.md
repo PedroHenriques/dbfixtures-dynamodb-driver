@@ -102,7 +102,10 @@ const fixtures = {
 
 describe('fixtures example', function () {
   before(async function () {
-    const dynamodbDriver = await fixturesDynamodbDriver.create(dynamodbConfig, tableConfigs);
+    const dynamodbDriver = await fixturesDynamodbDriver.create({
+      clientConfiguration: dynamodbConfig,
+      tableConfigs
+    });
     dbfixtures.setDrivers(dynamodbDriver);
   });
 
