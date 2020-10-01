@@ -8,12 +8,19 @@ This package is ment to be used in conjunction with the [dbfixtures package](htt
 ## Installation
 
 ```sh
-npm install dbfixtures-dynamodb-driver
+npm install --save-dev dbfixtures-dynamodb-driver
 ```
 
 ## Usage
 
-This package exposes the `create({ clientConfiguration: dynamodbClient.ClientConfiguration, tableConfigs: { [key: string]: dynamodbClient.CreateTableInput } }): Promise<IDriver>` function that returns a Promise that resolves with an instance of the driver.  
+This package exposes the
+```js
+create({
+  clientConfiguration: dynamodbClient.ClientConfiguration,
+  tableConfigs: { [key: string]: dynamodbClient.CreateTableInput }
+}): Promise<IDriver>
+```
+function that returns a Promise that resolves with an instance of the driver.  
 
 **Note1:** For detailed information about the `ClientConfiguration` argument, please consult the [AWS JS SDK DynamoDb constructor documentation](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#constructor-property).  
 **Note2:** For detailed information about the `CreateTableInput` argument, please consult the [AWS JS SDK DynamoDb createTable documentation](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#createTable-property).
@@ -102,7 +109,10 @@ const fixtures = {
 
 describe('fixtures example', function () {
   before(async function () {
-    const dynamodbDriver = await fixturesDynamodbDriver.create(dynamodbConfig, tableConfigs);
+    const dynamodbDriver = await fixturesDynamodbDriver.create({
+      clientConfiguration: dynamodbConfig,
+      tableConfigs
+    });
     dbfixtures.setDrivers(dynamodbDriver);
   });
 
