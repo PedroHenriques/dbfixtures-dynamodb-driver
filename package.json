@@ -1,6 +1,6 @@
 {
   "name": "dbfixtures-dynamodb-driver",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A DynamoDb driver for the NPM dbfixtures package.",
   "keywords": [
     "db fixtures",
